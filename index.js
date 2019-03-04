@@ -42,7 +42,7 @@ class SyncMessage {
       data: res,
     })
   }
-  onMessage() {
+  async onMessage() {
     return Promise.resolve()
   }
   send(data) {

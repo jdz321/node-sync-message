@@ -1,16 +1,27 @@
 const syncMessageChild = require('./index').child()
 const log = require('./log')('child')
-
-log('child');
+const delay = require('./delay')
 
 process.on('message', async (msg) => {
   log(`child receive message: ${msg}`)
 })
 
 async function callParent() {
-  const result = await syncMessageChild.send('who am i')
+  await delay(2000)
 
-  log('receive answer: ', result) 
+  const result1 = await syncMessageChild.send('who am i')
+
+  log('receive answer: ', result1) 
+
+  await delay(2000)
+
+  const result2 = await syncMessageChild.send('bye')
+
+  log('receive answer: ', result2)
+
+  await delay(2000)
+
+  process.exit(0)
 }
 
-setTimeout(callParent, 2000)
+callParent()

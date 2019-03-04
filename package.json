@@ -1,0 +1,24 @@
+{
+  "name": "node-sync-message",
+  "version": "1.0.0",
+  "description": "实现node进程间同步通信",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdz321/node-sync-message.git"
+  },
+  "keywords": [
+    "process",
+    "message",
+    "sync"
+  ],
+  "author": "jdz321",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdz321/node-sync-message/issues"
+  },
+  "homepage": "https://github.com/jdz321/node-sync-message#readme"
+}

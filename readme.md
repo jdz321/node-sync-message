@@ -21,7 +21,6 @@ const syncMessageMaster = SyncMessage.master(child)
 
 
 syncMessageMaster.onMessage = data => {
-  log('receive ask: ', data)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve('you are my child')

@@ -2,6 +2,8 @@ const getId = () => Math.random()
 
 const MESSAGE_REGEXP = /^NODE_SyncCall_(.+)$/
 
+const getCallbackCmd = id => `NODE_SyncCallback_${id}`
+
 function syncCall(data, target) {
   const id = getId()
   target.send({
@@ -10,7 +12,7 @@ function syncCall(data, target) {
   })
   return new Promise((resolve, reject) => {
     const callback = (msg) => {
-      if (msg.cmd === `NODE_SyncCallback_${id}`) {
+      if (msg.cmd === getCallbackCmd(id)) {
         target.removeListener('internalMessage', callback)
         resolve(msg.data)
       }
@@ -38,7 +40,7 @@ class SyncMessage {
     const [, id] = match
     const res = await this.onMessage(msg.data)
     this.target.send({
-      cmd: `NODE_SyncCallback_${id}`,
+      cmd: getCallbackCmd(id),
       data: res,
     })
   }

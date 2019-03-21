@@ -1,13 +1,16 @@
+const CALL_PREFIX = 'NODE_SyncCall_'
+const CALLBACK_PREFIX = 'NODE_SyncCallback_'
+
+const MESSAGE_REGEXP = new RegExp(`^${CALL_PREFIX}(.+)$`)
+
 const getId = () => Math.random()
 
-const MESSAGE_REGEXP = /^NODE_SyncCall_(.+)$/
-
-const getCallbackCmd = id => `NODE_SyncCallback_${id}`
+const getCallbackCmd = id => `${CALLBACK_PREFIX}${id}`
 
 function syncCall(data, target) {
   const id = getId()
   target.send({
-    cmd: `NODE_SyncCall_${id}`,
+    cmd: `${CALL_PREFIX}${id}`,
     data,
   })
   return new Promise((resolve, reject) => {

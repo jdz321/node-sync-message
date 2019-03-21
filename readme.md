@@ -13,6 +13,7 @@
 ```js
 const { fork } = require('child_process')
 const SyncMessage = require('node-sync-message')
+const delay = require('delay')
 
 const child = fork('./child.js', {
   stdio: 'inherit',
@@ -20,12 +21,10 @@ const child = fork('./child.js', {
 const syncMessageMaster = SyncMessage.master(child)
 
 
-syncMessageMaster.onMessage = data => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('you are my child')
-    }, 3000)
-  })
+syncMessageMaster.onMessage = async data => {
+  await delay(2000)
+
+  return 'you are my child'
 }
 
 ```
@@ -36,12 +35,12 @@ const syncMessageChild = require('./index').child()
 
 process.stdin.resume()
 
-async function callParent() {
+(async () => {
+  await delay(2000)
+
   const result = await syncMessageChild.send('who am i')
 
   log('receive answer: ', result) 
-}
-
-setTimeout(callParent, 2000)
+})()
 
 ```

@@ -21,7 +21,9 @@ const child = fork('./child.js', {
 const syncMessageMaster = SyncMessage.master(child)
 
 
-syncMessageMaster.onMessage = async data => {
+syncMessageMaster.onMessage = async (data) => {
+  console.log('parent receive ask: ', data) 
+
   await delay(2000)
 
   return 'you are my child'
@@ -31,7 +33,8 @@ syncMessageMaster.onMessage = async data => {
 
 ### in child process
 ```js
-const syncMessageChild = require('./index').child()
+const syncMessageChild = require('node-sync-message').child()
+const delay = require('delay')
 
 process.stdin.resume()
 
@@ -40,7 +43,7 @@ process.stdin.resume()
 
   const result = await syncMessageChild.send('who am i')
 
-  log('receive answer: ', result) 
+  console.log('clild receive answer: ', result) 
 })()
 
 ```

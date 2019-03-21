@@ -5,8 +5,8 @@
 
 ## USAGE
 
-子进程创建后2秒，向主进程发消息“who am i”
-主进程思考了2秒后回答“you are my child”
+子进程创建后2秒，向主进程发消息“who am i”，然后等待回答  
+主进程收到消息，思考了2秒后回答“you are my child”
 
 ### in parent process
 

@@ -7,8 +7,6 @@ process.on('message', async (msg) => {
 })
 
 async function callParent() {
-  await delay(2000)
-
   const result1 = await syncMessageChild.send('who am i')
 
   log('receive answer: ', result1) 
@@ -18,10 +16,20 @@ async function callParent() {
   const result2 = await syncMessageChild.send('bye')
 
   log('receive answer: ', result2)
-
-  await delay(2000)
-
-  process.exit(0)
 }
 
-callParent()
+async function cpsCallParent() {
+  log('--- test cps style ---') 
+  syncMessageChild.send('bye', (err, result1) => {
+    log('receive answer: ', result1) 
+  })
+}
+
+!(async () => {
+  await delay(2000)
+  await callParent()
+  await delay(2000)
+  await cpsCallParent()
+  await delay(2000)
+  process.exit(0)
+})()

@@ -33,6 +33,8 @@ syncMessageMaster.onMessage = async data => {
   if (data === 'bye') {
     return 'see you'
   }
-  await delay(2000)
-  return 'you are my child'
+  if (data === 'who am i') {
+    await delay(2000)
+    return 'you are my child'
+  }
 }

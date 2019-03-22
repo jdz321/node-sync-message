@@ -25,11 +25,23 @@ async function cpsCallParent() {
   })
 }
 
+async function testTimeout() {
+  log('--- test timeout ---')
+  try {
+    const res = await syncMessageChild.send('who am i', { timeout: 1000 })
+    log('receive answer: ', res) 
+  } catch(err) {
+    log('receive error: ', err) 
+  }
+}
+
 !(async () => {
   await delay(2000)
   await callParent()
   await delay(2000)
   await cpsCallParent()
   await delay(2000)
+  await testTimeout()
+  await delay(3000)
   process.exit(0)
 })()

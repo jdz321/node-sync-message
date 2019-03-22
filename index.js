@@ -58,6 +58,7 @@ class SyncMessage {
   constructor(target = process) {
     this.target = target
     target.on('internalMessage', this.__onPrivateMessage.bind(this))
+    this.send = this.send.bind(this)
   }
   async __onPrivateMessage(msg) {
     const match = msg.cmd.match(MESSAGE_REGEXP)
